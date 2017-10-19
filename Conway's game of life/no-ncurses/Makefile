@@ -1,2 +1,2 @@
 all:
-	gcc main.c -g -o main
+	gcc main.c interface.c life.c -g -o life
