@@ -15,6 +15,10 @@ int main(){
     srand(time(NULL));
 
     Board *tabela = generate_board(COL, ROW);
+    plot_random(tabela, 10);
+    
+    /* Code from the future
+
     printf("['r'andom] or 'g'lide? ");
 
     switch (getchar()){
@@ -25,7 +29,7 @@ int main(){
 	default:
 	    plot_random(tabela, 10);
     
-    }
+    } */
 
     while(1) {
 	print_board(tabela);
