@@ -4,38 +4,47 @@
 #include <time.h>
 
 #include "life.h"
+#include "patterns.h"
 #include "interface.h"
 
 #define ROW 20
 #define COL 75
 
-// MAIN
+
+void menu(Board *tabela){
+    int opt;
+    char aux[30];
+
+    printf("1 [Random]\n2 Plot glider\n3 Load state\nChoice: ");
+    scanf("%d", &opt);
+
+    switch(opt){
+	case 2:
+	    plot_pattern(tabela, glider, 0, 0);
+	    return;
+	case 3:
+	    printf("filename? ");
+	    scanf("%s", aux);
+	    load_state(tabela, aux);
+	    return;
+	default:
+	    plot_random(tabela, 10);
+	    save_state(tabela, "rename");
+    }
+}
 
 int main(){
     srand(time(NULL));
 
     Board *tabela = generate_board(COL, ROW);
-    plot_random(tabela, 10);
-    
-    /* Code from the future
-
-    printf("['r'andom] or 'g'lide? ");
-
-    switch (getchar()){
-	case 'g':
-	    // plot glider	    
-	    break;
-
-	default:
-	    plot_random(tabela, 10);
-    
-    } */
+    menu(tabela);
 
     while(1) {
 	print_board(tabela);
 	next_iteration(tabela);
 	usleep(100000);
     }
-
+    
+    free_board(tabela);
     return 0;
 }

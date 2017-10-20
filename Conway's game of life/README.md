@@ -1,3 +1,3 @@
 # Conway's Game of Life
 ncurses version not done yet.   
-soon will be documentated! (and organized)
+soon it will be documentated!

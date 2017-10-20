@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "life.h"
 
 
@@ -35,10 +36,8 @@ Board *generate_board(int columns, int rows){
 }
 
 void free_board(Board *board){
-    
-    // TO DO
-    
-    return;
+    free_matrix(board->matrix, board->rows);
+    free(board); 
 }
 
 void plot_random(Board *board, int fill){
@@ -55,17 +54,21 @@ void plot_random(Board *board, int fill){
     } 
 }
 
-void plot_pattern(Board *board, int **patern, int row, int col){
-
-    // TO DO
-
-    return; 
-}
-
 int __wrap(int max, int val){
     if (val < 0) val = max + val;
     if (val == max) val = val%max;
     return val;
+}
+
+void plot_pattern(Board *board, int pattern[][2], int row, int col){
+    int aux, r, c, size = pattern[0][1];
+
+    for(aux = 1; aux <= size; aux++){
+	r = __wrap(board->rows, row+pattern[aux][0]);
+	c = __wrap(board->columns, col+pattern[aux][1]);
+	
+	board->matrix[r][c] = 1;	    
+    } 
 }
 
 int cell_state(Board *board, int col, int row){
@@ -102,4 +105,35 @@ void next_iteration(Board *board){
 
     free_matrix(board->matrix, board->rows);
     board->matrix = matrix;
+}
+
+void save_state(Board *board, char *filename){
+    int row, col;
+    FILE *arquivo = fopen(filename, "w");
+    
+    fprintf(arquivo, "%d %d\n", board->rows, board->columns);
+    for(row = 0; row < board->rows; row++){
+	for(col = 0; col < board->columns; col++)
+	   fprintf(arquivo, "%d ", board->matrix[row][col]);
+	fprintf(arquivo, "\n");	
+    }
+
+    fclose(arquivo);
+}
+
+void load_state(Board *board, char *filename){
+    int rows, columns, row, col;
+    free_board(board);
+
+    FILE *arquivo = fopen(filename, "r");
+
+    fscanf(arquivo, "%d %d", &rows, &columns);
+    board = generate_board(columns, rows); 
+    
+    for(row = 0; row < rows; row++){
+	for(col = 0; col < columns; col++)
+	    fscanf(arquivo, "%d", &board->matrix[row][col]);
+    }
+
+    fclose(arquivo);
 }
