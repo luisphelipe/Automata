@@ -7,7 +7,7 @@
 #include "patterns.h"
 #include "interface.h"
 
-#define ROW 20
+#define ROW 30
 #define COL 75
 
 

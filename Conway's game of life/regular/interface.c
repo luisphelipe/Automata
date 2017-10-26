@@ -6,7 +6,7 @@ void print_board(Board* board){
     int row, col;
 
     // Centralizei para o meu monitor, ajustar essa configuração 
-    for(row = 0; row < board->rows/2; row++)
+    for(row = 0; row < 10; row++)
        printf("\n");
     
     for(row = 0; row < board->rows; row++){
@@ -15,9 +15,10 @@ void print_board(Board* board){
 	printf("\n");
     }
     
-    // Centralizei para o meu monitor, ajustar essa configuração 
-    for(row = 0; row < board->rows/3; row++)
+    /* Centralizei para o meu monitor, ajustar essa configuração 
+    for(row = 0; row < 2; row++)
        printf("\n");
+       */
     
     fflush(stdout);
 }
