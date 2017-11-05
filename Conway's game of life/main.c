@@ -7,8 +7,9 @@
 #include "patterns.h"
 #include "interface.h"
 
-#define ROW 30
+#define ROW 33
 #define COL 75
+#define DELAY 200000
 
 
 void menu(Board *tabela){
@@ -42,7 +43,7 @@ int main(){
     while(1) {
 	print_board(tabela);
 	next_iteration(tabela);
-	usleep(100000);
+	usleep(DELAY);
     }
     
     free_board(tabela);

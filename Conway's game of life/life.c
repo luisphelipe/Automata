@@ -114,7 +114,7 @@ void save_state(Board *board, char *filename){
     fprintf(arquivo, "%d %d\n", board->rows, board->columns);
     for(row = 0; row < board->rows; row++){
 	for(col = 0; col < board->columns; col++)
-	   fprintf(arquivo, "%d ", board->matrix[row][col]);
+	   fprintf(arquivo, "%d", board->matrix[row][col]);
 	fprintf(arquivo, "\n");	
     }
 
@@ -132,7 +132,7 @@ void load_state(Board *board, char *filename){
     
     for(row = 0; row < rows; row++){
 	for(col = 0; col < columns; col++)
-	    fscanf(arquivo, "%d", &board->matrix[row][col]);
+	    fscanf(arquivo, "%1d", &board->matrix[row][col]);
     }
 
     fclose(arquivo);
