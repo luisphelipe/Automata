@@ -2,6 +2,5 @@
 just enough to start messing with cellular automata!  
 
 ## TODO
-Add save/load system  
-Add menu  
+option to draw patterns  
 more rules.  

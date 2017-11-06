@@ -1,8 +1,13 @@
-public class Automata {
+import java.io.*;
+import java.util.Scanner;
+
+
+public class Automata implements Serializable {
     public static final int WIDTH = 33;
     public static final int LENGTH = 75;
     public static final int FILL = 10;
     public static final int DELAY = 100;
+    public static final String FILENAME = "test";
     public int[][] board;
     Rule rule;
 
@@ -13,8 +18,26 @@ public class Automata {
 	plotRandom();
     }
 
-    public static void main(String[] args) {
+    public static Automata menu() throws Error{
 	Automata kill = new Automata();
+
+	Scanner scanner = new Scanner(System.in);
+	System.out.print("Random [1] Carregar salvo [2]: ");
+	int opt = Integer.parseInt(scanner.nextLine());
+
+	switch(opt){
+	    case 1:
+		kill.saveState();
+		break;
+	    case 2:
+		kill = Automata.loadState();
+		break;
+	}
+	return kill;
+    }
+
+    public static void main(String[] args) {
+	Automata kill = Automata.menu();
 	
 	while(true){
 	    try {
@@ -59,5 +82,29 @@ public class Automata {
 	}
     
 	// System.out.println("\n\n");
+    }
+
+    private void saveState(){
+	try {
+	    FileOutputStream fs = new FileOutputStream(Automata.FILENAME);
+	    ObjectOutputStream os = new ObjectOutputStream(fs);
+	    os.writeObject(this);
+	    os.close();
+	} catch (Exception ex) {
+	    ex.printStackTrace();
+	}
+    }
+
+    private static Automata loadState() throws Error{
+	try {
+	    FileInputStream fs = new FileInputStream(Automata.FILENAME);
+	    ObjectInputStream os = new ObjectInputStream(fs);
+	    Automata obj = (Automata) os.readObject();
+	    os.close();
+	    return obj;
+	} catch (Exception ex) {
+	    System.out.println("Error, cannot load file '" + Automata.FILENAME + "'");
+	    return null;
+	}
     }
 }

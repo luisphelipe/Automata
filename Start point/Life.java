@@ -1,4 +1,4 @@
-public class Life implements Rule {
+public class Life extends Rule {
     private int[][] state = {
 	{0, 0, 0, 1, 0, 0, 0, 0, 0},
 	{0, 0, 1, 1, 0, 0, 0, 0, 0}

@@ -1,8 +1,11 @@
-public interface Rule {
+import java.io.*;
+
+
+public abstract class Rule implements Serializable {
     // representa os 18 estados possiveis
     // e o resultado.
     // int[][] state;
 
     // private int cellState(int[][] b, int r, int c);
-    public int[][] nextIteration(int[][] b);
+    abstract public int[][] nextIteration(int[][] b);
 }
